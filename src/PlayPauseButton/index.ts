@@ -1,6 +1,6 @@
 import { AnimationLoop } from "../AnimationLoop";
 import WaveAudio from "../WaveAudio";
-import styles from './styles.css';
+import ButtonEle from "../ButtonEle";
 
 interface PlayPauseButtonConstructor {
     animationLoop: AnimationLoop;
@@ -8,12 +8,10 @@ interface PlayPauseButtonConstructor {
     waveAudio: WaveAudio;
 }
 
-export class PlayPauseButton {
+export class PlayPauseButton extends ButtonEle {
 
-    private ele: HTMLButtonElement;
-
-    constructor({ animationLoop, waveAudio, text }: PlayPauseButtonConstructor) {
-        this.ele = document.createElement('button');
+    constructor({ animationLoop, waveAudio }: PlayPauseButtonConstructor) {
+        super();
         this.ele.addEventListener('click', () => {
             if (!animationLoop.playing) {
                 waveAudio.play();
@@ -25,11 +23,7 @@ export class PlayPauseButton {
                 animationLoop.stop();
             };
         });
-        this.ele.setAttribute('class', styles.button);
         this.ele.innerHTML = 'PLAY';
     }
 
-    appendTo(target: HTMLElement) {
-        target.append(this.ele);
-    }
 }

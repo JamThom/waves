@@ -5,8 +5,6 @@ import { AnimationLoop } from './AnimationLoop';
 import PitchCanvas from './PitchCanvas';
 import { PlayPauseButton } from './PlayPauseButton';
 
-const getineWave = (waveLength: number): number[] => [...new Array(waveLength).fill(0).map((x, i) => (Math.sin((i/waveLength) * (Math.PI * 4)) + 1) / 2)];
-
 const animationLoop = new AnimationLoop({ duration: 2000 });
 const audioWaveShape = new WaveShape({
   wave: [...new Array(1024).fill(0).map((x, i) => (Math.sin((i/1024) * (Math.PI * 4)) + 1) / 2)]
