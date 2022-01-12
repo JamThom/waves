@@ -5,7 +5,7 @@ import { AnimationLoop } from "../AnimationLoop";
 
 
 interface PitchCanvasConstructor {
-  waveShape: WaveShape;
+  pitchWaveShape: WaveShape;
   waveAudio: WaveAudio;
   animationLoop: AnimationLoop;
 };
@@ -14,21 +14,21 @@ export default class PitchCanvas extends DrawingBoard {
 
   constructor({
     waveAudio,
-    waveShape,
+    pitchWaveShape,
     animationLoop
   }: PitchCanvasConstructor) {
     super({
       width: window.innerWidth / 2,
       height: window.innerHeight / 2,
       onDraw: (x, y) => {
-        const pitchShape = waveShape.setShape(x, y);
+        const pitchShape = pitchWaveShape.setShape(x, y);
         this.setWave(pitchShape);
       }
     })
-    this.setWave(waveShape.getWave());
+    this.setWave(pitchWaveShape.getWave());
     animationLoop.onLoop((progress) => {
       const y = this.wave[Math.floor(progress * this.wave.length)];
-      const frequency = 2 ** ((1-y) * 10);
+      const frequency = (1 - (0.9 ** ((1-y)*3))) * 3520;
       waveAudio.setFrequency(frequency);
       this.setProgressDot(progress, y);
     });

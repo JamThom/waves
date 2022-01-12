@@ -16,7 +16,7 @@ export class PlayPauseButton extends ButtonEle {
             if (!animationLoop.playing) {
                 waveAudio.play();
                 this.ele.innerHTML = 'STOP';
-                animationLoop.playLoop();
+                animationLoop.play();
             } else {
                 waveAudio.pause();
                 this.ele.innerHTML = 'PLAY';

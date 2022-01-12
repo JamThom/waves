@@ -5,7 +5,7 @@ import WaveShape from "../WaveShape";
 
 
 interface WavePointConstructor {
-  waveShape: WaveShape;
+  audioWaveShape: WaveShape;
   waveAudio: WaveAudio;
   animationLoop: AnimationLoop;
 };
@@ -13,7 +13,7 @@ interface WavePointConstructor {
 export default class WavePoint extends DrawingBoard {
 
   constructor({
-    waveShape,
+    audioWaveShape,
     waveAudio,
     animationLoop
   }: WavePointConstructor) {
@@ -21,12 +21,12 @@ export default class WavePoint extends DrawingBoard {
       width: window.innerWidth / 2,
       height: window.innerHeight / 2,
       onDraw: (x, y) => {
-        const wave = waveShape.setShape(x, y);
+        const wave = audioWaveShape.setShape(x, y);
         this.setWave(wave);
         waveAudio.setWave(wave);
       }
     })
-    this.setWave(waveShape.getWave());
+    this.setWave(audioWaveShape.getWave());
     animationLoop.onLoop((progress) => {
       const x = (progress * 3) % 1;
       const y = this.wave[Math.floor(x * this.wave.length)];

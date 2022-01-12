@@ -12,6 +12,10 @@ export class AnimationLoop {
 
     private loopCallbacks: ((progress: number) => void)[] = [];
 
+    private playCallbacks: (() => void)[] = [];
+
+    private stopCallbacks: (() => void)[] = [];
+
     private loop() {
         const progress = ((Date.now() - this.startTime) / this.duration) % 1;
         this.loopCallbacks.forEach((callback) => callback(progress));
@@ -24,8 +28,9 @@ export class AnimationLoop {
         this.duration = duration;
     }
 
-    playLoop() {
+    play() {
         if (this.playing === false) {
+            this.playCallbacks.forEach((callback) => callback());
             this.startTime = Date.now();
             this.playing = true;
             this.loop();
@@ -34,9 +39,18 @@ export class AnimationLoop {
 
     stop() {
         if (this.playing === true) {
+            this.stopCallbacks.forEach((callback) => callback());
             this.startTime = Date.now();
             this.playing = false;
         }
+    }
+
+    onStart(callback: () => void) {
+        this.playCallbacks.push(callback);
+    }
+
+    onStop(callback: () => void) {
+        this.stopCallbacks.push(callback);
     }
 
     onLoop(callback: (progress: number) => void) {
