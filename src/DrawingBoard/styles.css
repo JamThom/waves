@@ -1,0 +1,22 @@
+.line {
+    fill: none;
+    stroke: white;
+}
+
+.svg {
+    width: 46vw;
+    border: 2px #121212 solid;
+    height: fit-content;
+    padding: 0px;
+}
+
+.grid {
+    stroke: #0a0a0ab8;
+    stroke-width: 2px;
+}
+
+.progressDot {
+    fill: white;
+    stroke: #262626;
+    stroke-width: 2px;
+}
