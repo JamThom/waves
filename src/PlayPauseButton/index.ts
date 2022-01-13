@@ -4,7 +4,6 @@ import ButtonEle from "../ButtonEle";
 
 interface PlayPauseButtonConstructor {
     animationLoop: AnimationLoop;
-    text: string;
     waveAudio: WaveAudio;
 }
 

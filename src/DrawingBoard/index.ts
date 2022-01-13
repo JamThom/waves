@@ -43,11 +43,9 @@ export default class DrawingBoard {
     const {
       width, height, top, left,
     } = this.svg.getBoundingClientRect();
-    const x = (e.clientX - left) / width;
-    const y = (e.clientY - top) / height;
-    if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
-      this.onDrawCallbacks.forEach((callback) => callback(x, y));
-    }
+    const x = Math.min(Math.max((e.clientX - left) / width, 0), 0.999999);
+    const y = Math.min(Math.max((e.clientY - top) / height, 0), 1);
+    this.onDrawCallbacks.forEach((callback) => callback(x, y));
   }
 
   private initProgressDot() {
@@ -94,7 +92,7 @@ export default class DrawingBoard {
     this.line.setAttribute('d', wave.map((x, i) => (i === 0 ? (
       `M ${0} ${x * this.height}`
     ) : (
-      wave[i - 1] === x ? '' : `L${(i / wave.length) * this.width} ${x * this.height}`
+      `L${(i / wave.length) * this.width} ${x * this.height}`
     ))).join(' '));
   }
 

@@ -8,14 +8,20 @@ interface WavePointConstructor {
   audioWaveShape: WaveShape;
   waveAudio: WaveAudio;
   animationLoop: AnimationLoop;
+  pitchWaveShape: WaveShape;
 };
 
 export default class WavePoint extends DrawingBoard {
 
+  private dotX = 0;
+
+  private pitchWaveShape: WaveShape;
+
   constructor({
     audioWaveShape,
     waveAudio,
-    animationLoop
+    animationLoop,
+    pitchWaveShape
   }: WavePointConstructor) {
     super({
       width: window.innerWidth / 2,
@@ -26,11 +32,14 @@ export default class WavePoint extends DrawingBoard {
         waveAudio.setWave(wave);
       }
     })
+    this.pitchWaveShape = pitchWaveShape;
     this.setWave(audioWaveShape.getWave());
     animationLoop.onLoop((progress) => {
-      const x = (progress * 3) % 1;
-      const y = this.wave[Math.floor(x * this.wave.length)];
-      this.setProgressDot(x, y);
+      const next = 1 - (this.pitchWaveShape.getWave()[Math.floor(progress * this.wave.length)]??0.1);
+      this.dotX += next * next;
+      const y = this.wave[Math.floor((this.dotX % 1) * this.wave.length)];
+      console.log(progress, this.dotX);
+      this.setProgressDot((this.dotX % 1), y);
     });
   }
 }

@@ -1,5 +1,9 @@
-const Reverb = require("@logue/reverb");
+import Reverb from "@logue/reverb";
 import interpolate from "../utils/interpolate";
+
+interface setReverbArgs {
+  mix: number;
+};
 
 export default class WaveAudio {
 
@@ -11,40 +15,47 @@ export default class WaveAudio {
 
   private source: AudioBufferSourceNode;
 
+  private reverb: Reverb;
+
   constructor() {
     this.ac = new AudioContext();
 
     const start = () => {
       this.ac.resume();
-      document.removeEventListener('click', start);
+      document.removeEventListener('mousedown', start);
     }
     document.addEventListener('mousedown', start);
-    const reverb = new Reverb.default(this.ac, {
-      noise: 0,      
-      decay: 100,
-      delay: 1,
-      filterFreq: 5000,
-      filterQ: 1,
-      filterType: 'lowpass',
+    this.reverb = new Reverb(this.ac, {
+      noise: 1,      
+      decay: .3,
+      delay: 0,
+      filterFreq: 2000,
+      filterQ: 10,
+      filterType: 'highpass',
       once: false,
-      mix: 0.5,
+      mix: 0,
       reverse: false,
-      time: 50
+      time: .4
     });
+    this.ac.createDelay()
     this.audioBuffer = this.ac.createBuffer(2, this.ac.sampleRate, this.ac.sampleRate);
     this.source = this.ac.createBufferSource();
     this.source.buffer = this.audioBuffer;
     this.source.loop = true;
     this.outputGain = this.ac.createGain();
     this.source.connect(this.outputGain);
-    reverb.connect(this.outputGain);
-    this.outputGain.connect(this.ac.destination);
+    const output = this.reverb.connect(this.outputGain);
+    output.connect(this.ac.destination);
     this.outputGain.gain.value = 1;
     this.source.start();
   }
 
+  setReverb({ mix }: setReverbArgs) {
+    this.reverb.mix(mix);
+  }
+
   play() {
-    this.outputGain.gain.setTargetAtTime(0.5, 0, 0);
+    this.outputGain.gain.setTargetAtTime(0.3, 0, 0);
   }
 
   pause() {
@@ -60,7 +71,7 @@ export default class WaveAudio {
     for (let channel = 0; channel < this.audioBuffer.numberOfChannels; channel++) {
       const nowBuffering = this.audioBuffer.getChannelData(channel);
       for (let i = 0; i < this.audioBuffer.length; i++) {
-        nowBuffering[i] = interpolatedWave[i] * 2 - 1;
+        nowBuffering[i] = interpolatedWave[(i+(channel*1000))%interpolatedWave.length] * 2 - 1;
       }
     }
   }

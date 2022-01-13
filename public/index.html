@@ -11,15 +11,29 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            background: #262626;
+            justify-content: center;
+            flex-direction: column;
+            background: black;
+            gap: 20px;
+        }
+
+        #canvas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        #buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
         }
     </style>
 </head>
 
 <body>
-
+    <div id="canvas"></div>
+    <div id="buttons"></div>
 </body>
 <script src="main.js"></script>
 

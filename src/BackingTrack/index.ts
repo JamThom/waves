@@ -19,7 +19,7 @@ export default class BackingTrack {
         animationLoop.onLoop((progress) => {
             if (progress < previousProgress) {
                 this.player.pause();
-                this.player.currentTime = 0;
+                this.player.currentTime = 2;
                 this.player.play();
             }
             previousProgress = progress;

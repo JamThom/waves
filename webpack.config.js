@@ -8,6 +8,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config = {
   context: path.resolve(__dirname, 'src'),
   entry: './index.ts',
+  mode: 'production',
   module: {
     rules: [
       {

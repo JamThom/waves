@@ -28,7 +28,7 @@ export default class PitchCanvas extends DrawingBoard {
     this.setWave(pitchWaveShape.getWave());
     animationLoop.onLoop((progress) => {
       const y = this.wave[Math.floor(progress * this.wave.length)];
-      const frequency = (1 - (0.9 ** ((1-y)*3))) * 3520;
+      const frequency = (1 - (0.9 ** ((1-y)*3))) * 1760;
       waveAudio.setFrequency(frequency);
       this.setProgressDot(progress, y);
     });

@@ -1,3 +1,4 @@
 node_modules
 .vscode
-public/main.js
+public/*
+!public/index.html
