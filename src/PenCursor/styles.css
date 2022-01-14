@@ -1,0 +1,23 @@
+.pen {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    background-size: 0;
+    border-radius: 100%;
+    background-color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+body:active .pen {
+    background-size: contain;
+    transform: translateY(-100%);
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+}

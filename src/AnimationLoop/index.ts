@@ -18,8 +18,8 @@ export class AnimationLoop {
 
     private loop() {
         const progress = ((Date.now() - this.startTime) / this.duration) % 1;
-        this.loopCallbacks.forEach((callback) => callback(progress));
         if (this.playing) {
+            this.loopCallbacks.forEach((callback) => callback(progress));
             requestAnimationFrame(() => this.loop());
         }
     }
@@ -40,7 +40,6 @@ export class AnimationLoop {
     stop() {
         if (this.playing === true) {
             this.stopCallbacks.forEach((callback) => callback());
-            this.startTime = Date.now();
             this.playing = false;
         }
     }

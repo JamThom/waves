@@ -1,10 +1,32 @@
 .button {
-    top: 75%;
-    left: calc(50% - 50px);
     border-radius: 100px;
-    width: 100px;
+    width: 40px;
+    position: relative;
     border: 0;
-    height: 40px;
-    background: black;
-    color: white;
+    height: 20px;
+    background: #2e3135;
+    color: transparent;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.dot {
+    content: '';
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    background: #1b1d21;
+    top: 2px;
+    left: 2px;
+    border-radius: 1000px;
+    transition: .2s;
+}
+
+.active {
+    background: white;
+}
+
+.active .dot {
+    left: 20px;
 }

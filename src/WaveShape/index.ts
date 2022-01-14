@@ -20,7 +20,7 @@ export default class WaveShape {
 
     setShape(x: number, y: number): number[] {
         const index = Math.round(this.wave.length * x);
-        if (this.wave[index] === y || index > this.wave.length) return this.wave;
+        if (this.wave[index] === y || index >= this.wave.length) return this.wave;
         this.wave[index] = y;
         if ((Date.now() - this.lastEdited) < 300) {
             const from = Math.min(index, this.lastIndex);

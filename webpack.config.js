@@ -25,7 +25,7 @@ const config = {
         ],
       },
       {
-        test: /\.(m4a)$/i,
+        test: /\.(m4a|png)$/i,
         use: [
           {
             loader: 'file-loader',

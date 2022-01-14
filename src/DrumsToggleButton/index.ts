@@ -9,19 +9,16 @@ interface DrumsToggleButtonConstructor {
 
 export class DrumsToggleButton extends ButtonEle {
 
-    private muted = false;
-
     constructor({ backingTrack }: DrumsToggleButtonConstructor) {
-        super();
-        this.ele.addEventListener('click', () => {
-            this.muted = !this.muted;
-            if (this.muted) {
-                backingTrack.unmute();
-            } else {
-                backingTrack.mute();
-            };
+        super({
+            onToggle: (active) => {
+                if (active) {
+                    backingTrack.unmute();
+                } else {
+                    backingTrack.mute();
+                };
+            }
         });
-        this.ele.innerHTML = '#';
     }
 
 }

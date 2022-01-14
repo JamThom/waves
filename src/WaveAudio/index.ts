@@ -35,7 +35,7 @@ export default class WaveAudio {
       once: false,
       mix: 0,
       reverse: false,
-      time: .4
+      time: .7
     });
     this.ac.createDelay()
     this.audioBuffer = this.ac.createBuffer(2, this.ac.sampleRate, this.ac.sampleRate);

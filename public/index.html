@@ -13,20 +13,41 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-            background: black;
+            background: #1b1d21;
             gap: 20px;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
         }
 
         #canvas {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            flex-direction: column;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 10px;
         }
 
         #buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media screen and (min-width: 900px) {
+            #canvas {
+                display: flex;
+                justify-content: space-around;
+                flex-direction: row;
+                max-width: 1300px;
+                margin: 0 auto;
+                gap: 50px;
+            }
         }
     </style>
 </head>

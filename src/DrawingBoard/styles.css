@@ -1,17 +1,18 @@
 .line {
     fill: none;
-    stroke: white;
+    stroke: #b0b1b2;
 }
 
 .svg {
-    width: 46vw;
-    border: 2px #121212 solid;
+    width: 100vw;
     height: fit-content;
     padding: 0px;
+    background: #232529;
+    max-width: 700px;
 }
 
 .grid {
-    stroke: #0a0a0ab8;
+    stroke: #3b3e42;
     stroke-width: 2px;
 }
 
@@ -19,4 +20,14 @@
     fill: white;
     stroke: #262626;
     stroke-width: 2px;
+}
+
+@media screen and (min-width: 900px) {
+    
+    
+    .svg {
+        border: 1px #555856 solid;
+        width: 46vw;
+    }
+
 }
