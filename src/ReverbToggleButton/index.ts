@@ -9,6 +9,10 @@ export class ReverbToggleButton extends ButtonEle {
 
     constructor({ waveAudio }: ReverbToggleButtonConstructor) {
         super({
+            icons: [
+                'icon-dot',
+                'icon-dot-circled',
+            ],
             onToggle: (active) => {
                 if (active) {
                     waveAudio.setReverb({ mix: 0.75 });

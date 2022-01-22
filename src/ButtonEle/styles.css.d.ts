@@ -4,6 +4,7 @@ interface CssExports {
   'active': string;
   'button': string;
   'dot': string;
+  'icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

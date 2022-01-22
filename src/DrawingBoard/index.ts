@@ -1,4 +1,5 @@
 const ns = 'http://www.w3.org/2000/svg';
+import penCursor from '../PenCursor';
 import styles from './styles.css'
 
 interface DrawingBoardConstructor {
@@ -71,6 +72,8 @@ export default class DrawingBoard {
       document.addEventListener('mousemove', onMousemove);
       document.addEventListener('mouseup', offMousemove);
     });
+    svg.addEventListener('mouseenter', () => penCursor.setPenMode());
+    svg.addEventListener('mouseleave', () => penCursor.reset());
     for (let i = 1; i < 16; i++) {
       svg.append(makeGridLine(i * (this.width / 16), 0, i * (this.width / 16), this.height));
       svg.append(makeGridLine(0, i * (this.height / 16), this.width, i * (this.height / 16)));

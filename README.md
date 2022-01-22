@@ -1,15 +1,9 @@
-# 🚀 Welcome to your new awesome project!
+# Smoke doe and make bees
 
-This project has been created using **webpack-cli**, you can now run
-
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application
+align break
+browsers
+mobile
+interpolate line
+sharesave
+autosave
+autopitch

@@ -1,0 +1,11 @@
+.button {
+    position: fixed;
+    top: 75%;
+    left: calc(50% - 50px);
+    border-radius: 100px;
+    width: 100px;
+    border: 0;
+    height: 40px;
+    background: black;
+    color: white;
+}

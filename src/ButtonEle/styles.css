@@ -1,19 +1,19 @@
 .button {
     border-radius: 100px;
-    width: 40px;
+    width: 52px;
     position: relative;
     border: 0;
-    height: 20px;
+    height: 28px;
     background: #2e3135;
     color: transparent;
-    cursor: pointer;
+    cursor: inherit;
     transition: .2s;
 }
 
 .dot {
     content: '';
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     display: block;
     position: absolute;
     background: #1b1d21;
@@ -28,5 +28,24 @@
 }
 
 .active .dot {
-    left: 20px;
+    left: 26px;
+}
+
+.icon {
+    color: #17191e;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    font-size: 14px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon:first-child {
+    left: 0;
+    color: #1b1d21;
+
 }

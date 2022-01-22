@@ -1,4 +1,4 @@
-.pen {
+.dot, .hover, .pen {
     position: fixed;
     width: 8px;
     height: 8px;
@@ -7,17 +7,37 @@
     background-size: 0;
     border-radius: 100%;
     background-color: white;
+    mix-blend-mode: difference;
+}
+
+@keyframes hover {
+    to {
+        width: 12px;
+        height: 12px;
+        margin: 0 0 0 -2px;
+    }
+}
+
+.hover {
+    animation: hover .25s linear 0s infinite alternate;
 }
 
 .hidden {
     display: none;
 }
 
-body:active .pen {
+.pen {
     background-size: contain;
     transform: translateY(-100%);
     background-color: transparent;
     width: 20px;
     height: 20px;
     border-radius: 0;
+    transition: 0;
+    transition: .1s transform;
+    transform-origin: bottom left;
+}
+
+body:active .pen {
+    transform: translateY(-100%) rotate(-45deg);
 }

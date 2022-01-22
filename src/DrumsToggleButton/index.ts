@@ -11,6 +11,10 @@ export class DrumsToggleButton extends ButtonEle {
 
     constructor({ backingTrack }: DrumsToggleButtonConstructor) {
         super({
+            icons: [
+                'icon-music-outline',
+                'icon-music',
+            ],
             onToggle: (active) => {
                 if (active) {
                     backingTrack.unmute();

@@ -7,7 +7,10 @@ import BackingTrack from './BackingTrack';
 import { PlayPauseButton } from './PlayPauseButton';
 import { ReverbToggleButton } from './ReverbToggleButton';
 import { DrumsToggleButton } from './DrumsToggleButton';
-import PenCursor from './PenCursor';
+import penCursor from './PenCursor';
+import { QuantizeToggleButton } from './QuantizeToggleButton';
+
+penCursor.init();
 
 const animationLoop = new AnimationLoop({ duration: 4000 });
 const audioWaveShape = new WaveShape({
@@ -59,13 +62,9 @@ animationLoop.onStop(() => {
   backingTrack.pause();
 });
 
-const penCursor = new PenCursor();
-
-penCursor.show();
-
-
 const reverbToggleButton = new ReverbToggleButton({ waveAudio });
 const playPauseButton = new PlayPauseButton({ animationLoop });
+const quantizeToggleButton = new QuantizeToggleButton({ pitchCanvas });
 const drumsToggleButton = new DrumsToggleButton({ backingTrack });
 
 waveCanvas.appendTo(document.getElementById('canvas'));
@@ -73,3 +72,4 @@ pitchCanvas.appendTo(document.getElementById('canvas'));
 playPauseButton.appendTo(document.getElementById('buttons'));
 reverbToggleButton.appendTo(document.getElementById('buttons'));
 drumsToggleButton.appendTo(document.getElementById('buttons'));
+quantizeToggleButton.appendTo(document.getElementById('buttons'));

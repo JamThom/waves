@@ -3,34 +3,40 @@ const cursorImage = require('./cursor.png');
 console.log(cursorImage);
 
 
-export default class PenCursor {
+class PenCursor {
 
     private ele: HTMLElement;
     
     private onMousemove: (e: MouseEvent) => void;
 
     constructor() {
+    }
+    
+    init() {
         this.ele = document.createElement('div');
-        this.ele.classList.add(styles.pen);
-        this.ele.classList.add(styles.hidden);
+        this.ele.setAttribute('class', styles.dot);
         this.ele.style.backgroundImage = `url('${cursorImage.default}')`
         this.onMousemove = ((e: MouseEvent) => {
             this.ele.style.top = `${e.clientY}px`;
             this.ele.style.left = `${e.clientX}px`;
         }).bind(this);
+        document.addEventListener('mousemove', this.onMousemove);
+        document.body.style.cursor = 'none';
         document.body.append(this.ele);
     }
 
-    show() {
-        this.ele.classList.remove(styles.hidden);
-        document.addEventListener('mousemove', this.onMousemove);
-        document.body.style.cursor = 'none';
+    setPenMode() {
+        this.ele.setAttribute('class', styles.pen);
     }
 
-    hide() {
-        document.removeEventListener('mousemove', this.onMousemove);
-        document.body.style.cursor = '';
-        this.ele.classList.add(styles.hidden);
+    setHoverMode() {
+        this.ele.setAttribute('class', styles.hover);
+    }
+
+    reset() {
+        this.ele.setAttribute('class', styles.dot);
     }
 
 }
+
+export default new PenCursor();
