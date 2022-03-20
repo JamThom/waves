@@ -32,7 +32,6 @@ export default class WavePoint extends DrawingBoard {
     const next = 1 - (pitchWave[Math.floor(progress * this.wave.length)]??0.1);
     this.dotX += next * next;
     const y = this.wave[Math.floor((this.dotX % 1) * this.wave.length)];
-    console.log(progress, this.dotX);
     this.setProgressDot((this.dotX % 1), y);
   }
 }

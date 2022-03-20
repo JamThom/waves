@@ -19,7 +19,7 @@ export default class BackingTrack {
     }
 
     play() {
-        this.player.currentTime = 2;
+        this.player.currentTime = 0;
         this.player.play();
     }
 

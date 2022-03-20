@@ -8,22 +8,28 @@ import { PlayPauseButton } from './PlayPauseButton';
 import { ReverbToggleButton } from './ReverbToggleButton';
 import { DrumsToggleButton } from './DrumsToggleButton';
 import penCursor from './PenCursor';
+import { loadWave, saveWave } from './utils/syncWave';
 import { QuantizeToggleButton } from './QuantizeToggleButton';
 
-penCursor.init();
+if (window.innerWidth > 900) {
+  penCursor.init();
+}
+
 
 const animationLoop = new AnimationLoop({ duration: 4000 });
 const audioWaveShape = new WaveShape({
-  wave: [...new Array(1024).fill(0).map((x, i) => .15 + (Math.sin((i / 1024) * (Math.PI * 2)) + 1) / 2 * 0.7)]
+  wave: loadWave('audioWaveShape')??[...new Array(1024).fill(0).map((x, i) => .15 + (Math.sin((i / 1024) * (Math.PI * 2)) + 1) / 2 * 0.7)]
 });
+audioWaveShape.onSetShape(saveWave('audioWaveShape'))
 const pitchWaveShape = new WaveShape({
-  wave: [
+  wave: loadWave('pitchWaveShape')??[
     ...new Array(900).fill(0).map((x, i) => {
       const progress = 1 - (i / 900);
       return 1 - (progress * progress)
     })
   ]
 });
+pitchWaveShape.onSetShape(saveWave('pitchWaveShape'))
 const waveAudio = new WaveAudio();
 waveAudio.setWave(audioWaveShape.getWave());
 const waveCanvas = new WaveCanvas({ waveAudio, audioWaveShape });

@@ -1,7 +1,5 @@
 import styles from './styles.css';
 const cursorImage = require('./cursor.png');
-console.log(cursorImage);
-
 
 class PenCursor {
 

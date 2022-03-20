@@ -3,6 +3,7 @@
 interface CssExports {
   'grid': string;
   'line': string;
+  'lineGlow': string;
   'progressDot': string;
   'svg': string;
 }

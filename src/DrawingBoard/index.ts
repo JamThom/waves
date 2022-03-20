@@ -2,6 +2,10 @@ const ns = 'http://www.w3.org/2000/svg';
 import penCursor from '../PenCursor';
 import styles from './styles.css'
 
+const startEvent = window.innerWidth < 900 ? 'touchstart' : 'mousedown';
+const moveEvent = window.innerWidth < 900 ? 'touchmove' : 'mousemove';
+const endEvent = window.innerWidth < 900 ? 'touchend' : 'mouseup';
+
 interface DrawingBoardConstructor {
   onDraw: ((x: number, y: number) => void),
   width: number,
@@ -21,7 +25,7 @@ const makeGridLine = (x1: number, y1: number, x2: number, y2: number) => {
 export default class DrawingBoard {
   private svg: SVGElement;
 
-  private line: SVGPathElement;
+  private lines: SVGPathElement[];
 
   private width: number;
 
@@ -33,19 +37,21 @@ export default class DrawingBoard {
 
   wave: number[];
 
-  private initLine() {
+  private initLine(className: string) {
     const line = document.createElementNS(ns, 'path');
-    line.setAttribute('class', styles.line);
+    line.setAttribute('class', className);
     this.svg.append(line);
     return line;
   }
 
-  private handleLineDraw(e: MouseEvent) {
+  private handleLineDraw(e: TouchEvent|MouseEvent) {
+    const { clientX, clientY } =  (e instanceof window.TouchEvent) ? e.touches[0] : e;
+    
     const {
       width, height, top, left,
     } = this.svg.getBoundingClientRect();
-    const x = Math.min(Math.max((e.clientX - left) / width, 0), 0.999999);
-    const y = Math.min(Math.max((e.clientY - top) / height, 0), 1);
+    const x = Math.min(Math.max((clientX - left) / width, 0), 0.999999);
+    const y = Math.min(Math.max((clientY - top) / height, 0), 1);
     this.onDrawCallbacks.forEach((callback) => callback(x, y));
   }
 
@@ -63,14 +69,14 @@ export default class DrawingBoard {
     const svg = document.createElementNS(ns, 'svg');
     svg.setAttribute('class', styles.svg);
     svg.setAttribute('viewBox', `0 0 ${this.width}  ${this.height}`);
-    svg.addEventListener('mousedown', () => {
+    svg.addEventListener(startEvent, () => {
       const onMousemove = this.handleLineDraw.bind(this);
       const offMousemove = () => {
-        document.removeEventListener('mouseup', offMousemove);
-        document.removeEventListener('mousemove', onMousemove);
+        document.removeEventListener(endEvent, offMousemove);
+        document.removeEventListener(moveEvent, onMousemove);
       };
-      document.addEventListener('mousemove', onMousemove);
-      document.addEventListener('mouseup', offMousemove);
+      document.addEventListener(moveEvent, onMousemove);
+      document.addEventListener(endEvent, offMousemove);
     });
     svg.addEventListener('mouseenter', () => penCursor.setPenMode());
     svg.addEventListener('mouseleave', () => penCursor.reset());
@@ -86,17 +92,20 @@ export default class DrawingBoard {
     this.height = height;
     this.onDrawCallbacks.push(onDraw)
     this.svg = this.initSvg();
-    this.line = this.initLine();
+    this.lines = [
+      this.initLine(styles.line),
+      this.initLine(styles.lineGlow)
+    ];
     this.progressDot = this.initProgressDot();
   }
 
   setWave(wave: number[]) {
     this.wave = wave;
-    this.line.setAttribute('d', wave.map((x, i) => (i === 0 ? (
+    this.lines.forEach((line) => line.setAttribute('d', wave.map((x, i) => (i === 0 ? (
       `M ${0} ${x * this.height}`
     ) : (
       `L${(i / wave.length) * this.width} ${x * this.height}`
-    ))).join(' '));
+    ))).join(' ')));
   }
 
   appendTo(target: HTMLElement) {

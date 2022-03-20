@@ -14,6 +14,8 @@ export default class WaveShape {
 
     private lastIndex: number;
 
+    private callbacks: callback[] = [];
+
     getWave(): number[] {
         return this.wave;
     }
@@ -32,7 +34,12 @@ export default class WaveShape {
         }
         this.lastIndex = index;
         this.lastEdited = Date.now();
+        this.callbacks.forEach((callback) => callback(this.wave));
         return this.wave;
+    }
+
+    onSetShape(callback: callback): void {
+        this.callbacks.push(callback);
     }
 
     constructor({ wave }: WaveShapeConstructor) {

@@ -22,9 +22,9 @@ export default class WaveAudio {
 
     const start = () => {
       this.ac.resume();
+      this.source.start();
       document.removeEventListener('mousedown', start);
     }
-    document.addEventListener('mousedown', start);
     this.reverb = new Reverb(this.ac, {
       noise: 1,      
       decay: .3,
@@ -37,7 +37,6 @@ export default class WaveAudio {
       reverse: false,
       time: .7
     });
-    this.ac.createDelay()
     this.audioBuffer = this.ac.createBuffer(2, this.ac.sampleRate, this.ac.sampleRate);
     this.source = this.ac.createBufferSource();
     this.source.buffer = this.audioBuffer;
@@ -47,7 +46,7 @@ export default class WaveAudio {
     const output = this.reverb.connect(this.outputGain);
     output.connect(this.ac.destination);
     this.outputGain.gain.value = 1;
-    this.source.start();
+    document.addEventListener('mousedown', start);
   }
 
   setReverb({ mix }: setReverbArgs) {
